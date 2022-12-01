@@ -1,0 +1,2 @@
+Bonjour, vous etes sur <%= $hostname %>
+Je tourne sur <%= $facts[operatingsystem] %> v<%= $facts[os][distro][release][full] %>

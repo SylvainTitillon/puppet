@@ -1,0 +1,20 @@
+#! /bin/bash
+
+set -e
+set -o pipefail
+
+# Déploiement des .pp vers la machine de destination
+DEST=vagrant@192.168.56.10
+DEST_DIR=/etc/puppetlabs/code/environments/production
+
+# Validation de la syntaxe des fichiers
+# bash
+shellcheck scripts/*
+# manifestes puppet
+/opt/puppetlabs/bin/puppet parser validate modules/*/manifests/*.pp
+/opt/puppetlabs/bin/puppet parser validate manifests/*.pp
+find modules -name \*.epp -exec /opt/puppetlabs/bin/puppet epp validate {} \;
+
+rsync -a --delete modules/ $DEST:$DEST_DIR/modules/
+rsync -a --delete manifests/ $DEST:$DEST_DIR/manifests/
+rsync -a --delete data/ $DEST:$DEST_DIR/data/

@@ -1,0 +1,7 @@
+Installation de Puppet sur node1 via yum.puppet.com
+yum install puppet-agent 
+=> version 7.2 à l'install
+
+
+Sur la workstation : install de git, vim, et de shellcheck
++ installation de l'agent pour bénéficier du parser
